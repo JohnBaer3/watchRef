@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 import WatchConnectivity
 
 class ProgramViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WCSessionDelegate {
@@ -30,6 +31,26 @@ class ProgramViewController: UIViewController, UITableViewDataSource, UITableVie
     func sessionDidDeactivate(_ session: WCSession) {
         
     }
+    
+    @IBAction func printButtonclicked(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Match")
+        //request.predicate = NSPredicate(format: "age = %@", "12")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "homeTeam") as! String)
+//                context.delete(data)
+//                try context.save()
+            }
+        } catch {
+            print("Failed")
+        }
+
+    }
+    
     
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
@@ -56,20 +77,45 @@ class ProgramViewController: UIViewController, UITableViewDataSource, UITableVie
     
     //Where I make the objects of the data
     func initFakeDetails(){
-        let progObj = ProgramObject()
-        let progObj2 = ProgramObject()
-        let progObj3 = ProgramObject()
-        let progObj4 = ProgramObject()
+        //has to have
+        //home, away, halftime, location, date, time
         
-        progObj.initWithData(title: "farAndAway", speaker: "Gym Kirk", from: "Fri Oct 23", to: "Thur Oct 24", details: "Must Watch")
-        progObj2.initWithData(title: "Bla2", speaker: "Matthew Daniels", from: "Mon Sep 10", to: "Sat Jan 10", details: "Must Hear")
-        progObj3.initWithData(title: "Blo3", speaker: "Gorilla Bob", from: "Wed July 10", to: "Wed September 20", details: "Must See")
-        progObj4.initWithData(title: "Ble4", speaker: "Hans Mitchell", from: "Tues June 3", to: "Fri Nov 9", details: "Must Experience")
         
-        programs.insert(progObj, at: 0)
-        programs.insert(progObj2, at: 1)
-        programs.insert(progObj3, at: 2)
-        programs.insert(progObj4, at: 3)
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//        let entity = NSEntityDescription.entity(forEntityName: "Match", in: context)
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Match")
+//        //request.predicate = NSPredicate(format: "age = %@", "12")
+//        request.returnsObjectsAsFaults = false
+//        do {
+//            let result = try context.fetch(request)
+//            var i = 0;
+//            for data in result as! [NSManagedObject] {
+//                let progObj = ProgramObject()
+//                progObj.initWithData(title: data.value(forKey: "homeTeam") as! String, speaker: data.value(forKey: "awayTeam") as! String, from: data.value(forKey: "time") as! String, to: data.value(forKey: "date") as! String, details: data.value(forKey: "location") as! String)
+//
+//                programs.insert(progObj, at: i)
+//                i+=1;
+//            }
+//        } catch {
+//            print("Failed")
+//        }
+        
+        
+//        let progObj = ProgramObject()
+//        let progObj2 = ProgramObject()
+//        let progObj3 = ProgramObject()
+//        let progObj4 = ProgramObject()
+//
+//        progObj.initWithData(title: "farAndAway", speaker: "Gym Kirk", from: "Fri Oct 23", to: "Thur Oct 24", details: "Must Watch")
+//        progObj2.initWithData(title: "Bla2", speaker: "Matthew Daniels", from: "Mon Sep 10", to: "Sat Jan 10", details: "Must Hear")
+//        progObj3.initWithData(title: "Blo3", speaker: "Gorilla Bob", from: "Wed July 10", to: "Wed September 20", details: "Must See")
+//        progObj4.initWithData(title: "Ble4", speaker: "Hans Mitchell", from: "Tues June 3", to: "Fri Nov 9", details: "Must Experience")
+
+//        programs.insert(progObj, at: 0)
+//        programs.insert(progObj2, at: 1)
+//        programs.insert(progObj3, at: 2)
+//        programs.insert(progObj4, at: 3)
         
         //send the data off to the watch
         let programData = NSKeyedArchiver.archivedData(withRootObject: programs)

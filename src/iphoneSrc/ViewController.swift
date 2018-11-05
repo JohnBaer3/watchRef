@@ -15,11 +15,11 @@ class ViewController: UIViewController {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Match", in: context)
-        
+//        let entity = NSEntityDescription.entity(forEntityName: "Match", in: context)
+//
 //        let newMatch = NSManagedObject(entity: entity!, insertInto: context)
 //        newMatch.setValue("Real Madrid", forKey: "homeTeam")
-//        newMatch.setValue("Real Madrid", forKey: "awayTeam")
+//        newMatch.setValue("Barcelona", forKey: "awayTeam")
 //
 //        //where the data gets saved
 //        do {
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
 //        } catch {
 //            print("Failed saving")
 //        }
-        
+//
         
         
         //this part is to fetch the data - one part of the code is to remove data, one is to print data

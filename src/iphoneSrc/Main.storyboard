@@ -20,7 +20,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sh4-XO-291">
                                 <rect key="frame" x="93" y="149" width="187" height="147"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Program"/>
+                                <state key="normal" title="Next"/>
                                 <connections>
                                     <segue destination="Pdc-Tc-41Y" kind="presentation" id="Fy1-Pt-PM3"/>
                                 </connections>
@@ -28,7 +28,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZ0-TD-Gvg">
                                 <rect key="frame" x="94" y="304" width="187" height="147"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="delete all data"/>
                                 <connections>
                                     <action selector="buttonClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WFv-7Q-Njl"/>
                                 </connections>
@@ -140,11 +140,19 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLq-ah-CNG">
-                                <rect key="frame" x="36" y="629" width="46" height="30"/>
+                                <rect key="frame" x="43" y="629" width="32" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Next"/>
                                 <connections>
-                                    <segue destination="6DV-QW-KMX" kind="push" id="H5n-Xo-hBS"/>
+                                    <segue destination="6DV-QW-KMX" kind="modal" id="drg-jh-5nU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctW-df-CVc">
+                                <rect key="frame" x="187" y="617" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Print"/>
+                                <connections>
+                                    <action selector="printButtonclicked:" destination="Pdc-Tc-41Y" eventType="touchUpInside" id="foh-tf-VEu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -184,8 +192,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
-                                    <action selector="saveButton:" destination="6DV-QW-KMX" eventType="touchUpInside" id="Sx2-Kl-Tjn"/>
-                                    <segue destination="Pdc-Tc-41Y" kind="push" id="6bw-C4-2Yi"/>
+                                    <action selector="saveButton:" destination="6DV-QW-KMX" eventType="touchUpInside" id="9lB-Ro-4Ys"/>
+                                    <segue destination="Pdc-Tc-41Y" kind="modal" id="RD8-yR-rAv"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dzd-xY-Vj5">
@@ -216,13 +224,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Away Team" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pWC-ty-GlF">
-                                <rect key="frame" x="48" y="220" width="208" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="lXQ-Es-7KB"/>
@@ -243,6 +244,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6bw-C4-2Yi"/>
+        <segue reference="RD8-yR-rAv"/>
     </inferredMetricsTieBreakers>
 </document>

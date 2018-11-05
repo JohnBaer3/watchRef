@@ -22,25 +22,22 @@ class AddMatchViewController: UIViewController {
     
     
     @IBAction func saveButton(_ sender: Any) {
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Match", in: context)
         
         let newMatch = NSManagedObject(entity: entity!, insertInto: context)
-        newMatch.setValue(homeTeamText, forKey: "homeTeam")
-        newMatch.setValue(awayTeamText, forKey: "awayTeam")
-        newMatch.setValue(halfTimeText, forKey: "halfTime")
-        newMatch.setValue(locationText, forKey: "location")
-        newMatch.setValue(dateText, forKey: "date")
-        newMatch.setValue(timeText, forKey: "time")
+        newMatch.setValue(homeTeamText.text, forKey: "homeTeam")
+        newMatch.setValue(awayTeamText.text, forKey: "awayTeam")
         
+        //where the data gets saved
         do {
             try context.save()
         } catch {
             print("Failed saving")
         }
-        
-        
+//        
     }
     
     
