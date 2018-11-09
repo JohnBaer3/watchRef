@@ -35,7 +35,7 @@ class ProgramViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func printButtonclicked(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Match")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
         //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
         do {
@@ -80,42 +80,48 @@ class ProgramViewController: UIViewController, UITableViewDataSource, UITableVie
         //has to have
         //home, away, halftime, location, date, time
         
-        
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//        let entity = NSEntityDescription.entity(forEntityName: "Match", in: context)
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Match")
-//        //request.predicate = NSPredicate(format: "age = %@", "12")
-//        request.returnsObjectsAsFaults = false
-//        do {
-//            let result = try context.fetch(request)
-//            var i = 0;
-//            for data in result as! [NSManagedObject] {
-//                let progObj = ProgramObject()
-//                progObj.initWithData(title: data.value(forKey: "homeTeam") as! String, speaker: data.value(forKey: "awayTeam") as! String, from: data.value(forKey: "time") as! String, to: data.value(forKey: "date") as! String, details: data.value(forKey: "location") as! String)
-//
-//                programs.insert(progObj, at: i)
-//                i+=1;
-//            }
-//        } catch {
-//            print("Failed")
-//        }
-        
-        
 //        let progObj = ProgramObject()
 //        let progObj2 = ProgramObject()
 //        let progObj3 = ProgramObject()
 //        let progObj4 = ProgramObject()
 //
-//        progObj.initWithData(title: "farAndAway", speaker: "Gym Kirk", from: "Fri Oct 23", to: "Thur Oct 24", details: "Must Watch")
-//        progObj2.initWithData(title: "Bla2", speaker: "Matthew Daniels", from: "Mon Sep 10", to: "Sat Jan 10", details: "Must Hear")
-//        progObj3.initWithData(title: "Blo3", speaker: "Gorilla Bob", from: "Wed July 10", to: "Wed September 20", details: "Must See")
-//        progObj4.initWithData(title: "Ble4", speaker: "Hans Mitchell", from: "Tues June 3", to: "Fri Nov 9", details: "Must Experience")
-
+//        progObj.initWithData(homeName: "Barcelona", location: "Stanford", date: "Fri Oct 23", awayName: "Real Madrid")
+//        progObj2.initWithData(homeName: "Eric's team", location: "Walla Walla", date: "Thur Oct 24", awayName: "FC United")
+//        progObj3.initWithData(homeName: "Force", location: "Mountain View", date: "Wed Oct 25", awayName: "Westvalley")
+//        progObj4.initWithData(homeName: "Georgia", location: "Antlers", date: "Tuesday Oct 22", awayName: "Will Smith")
+//
 //        programs.insert(progObj, at: 0)
 //        programs.insert(progObj2, at: 1)
 //        programs.insert(progObj3, at: 2)
 //        programs.insert(progObj4, at: 3)
+        
+        
+        
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "Matches", in: context)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Matches")
+        //request.predicate = NSPredicate(format: "age = %@", "12")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            var i = 0;
+            for data in result as! [NSManagedObject] {
+                let progObj = ProgramObject()
+                progObj.initWithData(homeName: data.value(forKey: "homeTeam") as! String, location: data.value(forKey: "location") as! String, date: data.value(forKey: "date") as! String, awayName: data.value(forKey: "awayTeam") as! String, time: data.value(forKey: "time") as! String)
+
+                programs.insert(progObj, at: i)
+                i+=1;
+            }
+        } catch {
+            print("Failed")
+        }
+
+        
+        
+        
+        
         
         //send the data off to the watch
         let programData = NSKeyedArchiver.archivedData(withRootObject: programs)
@@ -189,10 +195,10 @@ class ProgramViewController: UIViewController, UITableViewDataSource, UITableVie
         var row = indexPath.row
         var rowObj = programs[row]
         
-        tableCell.title.text = rowObj.title as String?
-        tableCell.speaker.text = rowObj.speaker as String?
-        tableCell.from.text = rowObj.from as String?
-        tableCell.to.text = rowObj.to as String?
+        tableCell.homeName.text = rowObj.homeName as String?
+        tableCell.time.text = rowObj.time as String?
+        tableCell.date.text = rowObj.date as String?
+        tableCell.awayName.text = rowObj.awayName as String?
         
         return tableCell
     }

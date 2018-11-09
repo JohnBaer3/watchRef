@@ -9,44 +9,40 @@
 import UIKit
 
 class ProgramObject: NSObject, NSCoding {
-    var title: String?
-    var speaker: String?
-    var from: String?
-    var to: String?
-    var details: String?
+    var homeName: String?
+    var time: String?
+    var date: String?
+    var awayName: String?
     
-    func initWithData(title: String, speaker: String, from: String, to: String, details: String){
-        self.title = title;
-        self.speaker = speaker;
-        self.from = from;
-        self.to = to;
-        self.details = details;
+    func initWithData(homeName: String, time: String, date: String, awayName: String){
+        self.homeName = homeName;
+        self.time = time;
+        self.date = date;
+        self.awayName = awayName;
     }
     
     //used for deserializing the data ~ from the watch
     //use this data and share it between the watch and the phone
     required convenience init?(coder decoder: NSCoder){
-        guard let title = decoder.decodeObject(forKey: "title") as? String,
-            let speaker = decoder.decodeObject(forKey: "speaker") as? String,
-            let from = decoder.decodeObject(forKey: "from") as? String,
-            let to = decoder.decodeObject(forKey: "to") as? String,
-            let details = decoder.decodeObject(forKey: "details") as? String
+        guard let homeName = decoder.decodeObject(forKey: "homeName") as? String,
+            let time = decoder.decodeObject(forKey: "time") as? String,
+            let date = decoder.decodeObject(forKey: "date") as? String,
+            let awayName = decoder.decodeObject(forKey: "awayName") as? String
         else{
             return nil
         }
         
         self.init()
-        self.initWithData(title: title, speaker: speaker, from: from, to: to, details: details)
+        self.initWithData(homeName: homeName, time: time, date: date, awayName: awayName)
     }
     
     
     //used for serializing and sending off data
     func encode(with coder: NSCoder){
-        coder.encode(self.title, forKey: "title");
-        coder.encode(self.speaker, forKey: "speaker");
-        coder.encode(self.from, forKey: "from");
-        coder.encode(self.to, forKey: "to");
-        coder.encode(self.details, forKey: "details");
+        coder.encode(self.homeName, forKey: "homeName");
+        coder.encode(self.time, forKey: "time");
+        coder.encode(self.date, forKey: "date");
+        coder.encode(self.awayName, forKey: "awayName");
     }
     
     
