@@ -9,12 +9,15 @@
 import UIKit
 
 class ProgramTableViewCell: UITableViewCell {
-
-    @IBOutlet var title: UILabel!
-    @IBOutlet var speaker: UILabel!
-    @IBOutlet var imgSpeaker: UIImageView!
-    @IBOutlet var from: UILabel!
-    @IBOutlet var to: UILabel!
+    
+    @IBOutlet weak var imgSpeaker: UIImageView!
+    @IBOutlet weak var homeName: UILabel!
+    @IBOutlet weak var awayName: UILabel!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var halfTime: UILabel!
+    
+    
     
     @IBAction func saveUnsaveSelection(sender: UIButton){
         
