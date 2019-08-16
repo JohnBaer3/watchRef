@@ -10,12 +10,16 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-
 class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
 
     @IBOutlet var progTable : WKInterfaceTable!
     var programs : [ProgramObject] = []
-    
+    var matchArr: [String] = ["0","0","0","0"];
+    var nameArr: [String] = ["", "", "", ""]
+    var homeTemp: String = ""
+    var awayTemp: String = ""
+    var halfTemp: String = ""
+    var chooseMatch: Int = 0
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         
@@ -28,10 +32,8 @@ class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
         let loadedData = message["progData"]
         //because on the watch side, decode the information that was sent
         let loadedPerson = NSKeyedUnarchiver.unarchiveObject(with: loadedData as! Data) as? [ProgramObject]
-        
         //programs is the table array, pass the data we received (loadedPerson) into the programs array
         programs = loadedPerson!
-        
         //send message back saying, program received
         replyValues["status"] = "Program Received" as AnyObject?
         replyHandler(replyValues)
@@ -40,7 +42,6 @@ class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
         //if the session is supported, then activate the session
         if(WCSession.isSupported()){
             let session = WCSession.default
@@ -49,10 +50,23 @@ class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
         }
     }
 
+
+    override func contextForSegue(withIdentifier segueIdentifier: String) -> Any? {
+//        //Set matchArr to chooseMatch's array value, how do I find this...
+        let rower = self.progTable.rowController(at: chooseMatch-1) as! ProgRowController
+        //First two are shirt color, second two are half-time
+        matchArr[0] = "2"
+        matchArr[1] = "5"
+        matchArr[2] = "hmm" //String(rower.halfTime)
+        matchArr[3] = "hm" //String(rower.halfTime)
+        
+        return ["matchData":matchArr]
+    }
+    
+    
     override func willActivate() {
         super.willActivate()
-        
-        //make sure it's reachable
+//        make sure it's reachable
         if(WCSession.default.isReachable){
             //sends a message to say getProgData
             //tell the phone hey I want some data, send it to me
@@ -64,19 +78,23 @@ class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
                         let loadedData = result["progData"]
                         NSKeyedUnarchiver.setClass(ProgramObject.self, forClassName: "ProgramObject")
                         let loadedPerson = NSKeyedUnarchiver.unarchiveObject(with: loadedData as! Data) as? [ProgramObject]
-                        
                         self.programs = loadedPerson!
-                        
                         self.progTable.setNumberOfRows(self.programs.count, withRowType: "ProgRowController")
-                        
+
+                        var countey: Int = 0;
                         //loop throught the cells and display
                         for(index, prog) in self.programs.enumerated(){
                             let row = self.progTable.rowController(at: index) as! ProgRowController
+                            let tempTeams:String = prog.homeName! + " " + prog.awayName!;
+                            row.teamNamesVs.setTitle(tempTeams)
+                            let dateTime:String = prog.date! + " " + prog.time!;
+                            row.dateAndTime.setTitle(dateTime)
+                            row.halfTime = Int(prog.date!)
+                            countey += 1
+                            row.counter = countey
                             
-                            row.lblTitle.setText(prog.title)
-                            row.lblSpeaker.setText(prog.speaker)
-                            row.lblFrom.setText(prog.from)
-                            row.lblTo.setText(prog.to)
+                            //Make this a click-once, then second click for segue
+                            //  When this button is clicked, change the value of chooseNum to counter
                         }
                     }
                 }, errorHandler: {(error) -> Void in
@@ -89,4 +107,7 @@ class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
         super.didDeactivate()
     }
 
+    
+    
+    
 }

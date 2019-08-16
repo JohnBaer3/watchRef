@@ -1,18 +1,16 @@
 //
-//  FirstHalfTimer.swift
+//  SecondHalfTimer.swift
 //  WatchConferenceConnectApp WatchKit Extension
 //
-//  Created by John Baer on 11/1/18.
+//  Created by John Baer on 11/6/18.
 //  Copyright © 2018 John Baer. All rights reserved.
 //
 
 import WatchKit
 import Foundation
 
-//This is the screen for the timer for the first half of the match - shows the amount of points either team scored,
-//  and has a countdown for the half's time
-class FirstHalfTimer: WKInterfaceController {
-    
+class SecondHalfTimer: WKInterfaceController {
+
     @IBOutlet weak var timeText: WKInterfaceLabel!
     @IBOutlet weak var homeScore: WKInterfaceLabel!
     @IBOutlet weak var awayScore: WKInterfaceLabel!
@@ -21,7 +19,6 @@ class FirstHalfTimer: WKInterfaceController {
     var paused : Bool = false
     
     
-    //Grab the matchArr data, grab the matchDetails (scores, cards), update the text to how many goals were scored
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         timeText.setText(String(matchDetails.halfTime))
@@ -30,11 +27,6 @@ class FirstHalfTimer: WKInterfaceController {
         awayScore.setText(String(matchDetails.awayScoresArr.count ?? 0))
     }
     
-    
-    @IBAction func stopClick() {
-        paused = !paused
-    }
-
     
     func scheduledTimerWithTimeInterval(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeCounting), userInfo: nil, repeats: true)
@@ -49,18 +41,19 @@ class FirstHalfTimer: WKInterfaceController {
             timer.invalidate()
             
             //add popup that says that the timer ended, and add a button that moves the user to the next
-            //add alarm 
+            //add alarm
         }
     }
     
     
     override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }
 
     override func didDeactivate() {
+        // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-    
     
 }

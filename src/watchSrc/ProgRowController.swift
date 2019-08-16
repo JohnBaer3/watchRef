@@ -8,13 +8,22 @@
 
 import WatchKit
 
+//This is each individual button that gets created programmatically when the user navigates to the new view
 
 class ProgRowController: NSObject {
 
-    @IBOutlet var lblTitle : WKInterfaceLabel!
-    @IBOutlet var lblSpeaker : WKInterfaceLabel!
-    @IBOutlet var lblFrom : WKInterfaceLabel!
-    @IBOutlet var lblTo: WKInterfaceLabel!
+    @IBOutlet weak var dateAndTime: WKInterfaceButton!
+    @IBOutlet weak var teamNamesVs: WKInterfaceButton!
+    
+    var halfTime: Int!
+    var counter : Int!
     
     
+    @IBAction func dateTimeClick() {
+        //Here, I want to change the ProgramInterfaceController's chooseMatch to the current number
+    }
+    
+    @IBAction func teamNamesClick() {
+        
+    }
 }
