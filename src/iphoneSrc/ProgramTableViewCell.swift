@@ -8,14 +8,18 @@
 
 import UIKit
 
+//This is the class that makes the table view cells
 class ProgramTableViewCell: UITableViewCell {
-
-    @IBOutlet var title: UILabel!
-    @IBOutlet var speaker: UILabel!
-    @IBOutlet var imgSpeaker: UIImageView!
-    @IBOutlet var from: UILabel!
-    @IBOutlet var to: UILabel!
     
+    @IBOutlet weak var imgSpeaker: UIImageView!
+    @IBOutlet weak var homeName: UILabel!
+    @IBOutlet weak var awayName: UILabel!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var halfTime: UILabel!
+    
+    
+    //Save button is at the top of the table view cell, does nothing
     @IBAction func saveUnsaveSelection(sender: UIButton){
         
     }
@@ -31,5 +35,4 @@ class ProgramTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }
