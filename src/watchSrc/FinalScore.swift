@@ -12,6 +12,10 @@ import Foundation
 
 class FinalScore: WKInterfaceController {
 
+    @IBOutlet weak var score1: WKInterfaceLabel!
+    @IBOutlet weak var score2: WKInterfaceLabel!
+    
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -20,6 +24,8 @@ class FinalScore: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        score1.setText(String(matchDetails.homeScoresArr.count))
+        score2.setText(String(matchDetails.awayScoresArr.count))
     }
 
     override func didDeactivate() {

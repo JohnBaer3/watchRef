@@ -50,18 +50,6 @@ class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
         }
     }
 
-
-    override func contextForSegue(withIdentifier segueIdentifier: String) -> Any? {
-//        //Set matchArr to chooseMatch's array value, how do I find this...
-        let rower = self.progTable.rowController(at: chooseMatch-1) as! ProgRowController
-        //First two are shirt color, second two are half-time
-        matchArr[0] = "2"
-        matchArr[1] = "5"
-        matchArr[2] = "hmm" //String(rower.halfTime)
-        matchArr[3] = "hm" //String(rower.halfTime)
-        
-        return ["matchData":matchArr]
-    }
     
     
     override func willActivate() {
@@ -81,17 +69,14 @@ class ProgramInterfaceController: WKInterfaceController, WCSessionDelegate {
                         self.programs = loadedPerson!
                         self.progTable.setNumberOfRows(self.programs.count, withRowType: "ProgRowController")
 
-                        var countey: Int = 0;
                         //loop throught the cells and display
                         for(index, prog) in self.programs.enumerated(){
                             let row = self.progTable.rowController(at: index) as! ProgRowController
-                            let tempTeams:String = prog.homeName! + " " + prog.awayName!;
-                            row.teamNamesVs.setTitle(tempTeams)
-                            let dateTime:String = prog.date! + " " + prog.time!;
+                            let tempTeams:String = prog.homeName! + " " + prog.awayName!
+                            //row.teamNamesVs.setTitle(tempTeams)
+                            let dateTime:String = prog.date! + " " + prog.time!
                             row.dateAndTime.setTitle(dateTime)
-                            row.halfTime = Int(prog.date!)
-                            countey += 1
-                            row.counter = countey
+                            row.halfTime = Int(prog.halfTime!)
                             
                             //Make this a click-once, then second click for segue
                             //  When this button is clicked, change the value of chooseNum to counter

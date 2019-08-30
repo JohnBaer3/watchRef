@@ -13,6 +13,7 @@ class homeTeamOptions: WKInterfaceController {
 
     var scoreRedYellow : Int = 0;
     var timer = Timer()
+    var localTime: Int = matchDetails.currentTime
     
     
     override func awake(withContext context: Any?) {
@@ -34,10 +35,8 @@ class homeTeamOptions: WKInterfaceController {
     }
     
     @objc func timeCounting(){
-        if(matchDetails.currentTime > 1){
-            matchDetails.currentTime -= 1
-        }
-        if(matchDetails.currentTime < 1){
+        localTime -= 1
+        if(localTime < 1){
             timer.invalidate()
         }
     }
@@ -50,6 +49,7 @@ class homeTeamOptions: WKInterfaceController {
         }else if(segueIdentifier == "homeYellow"){
             scoreRedYellow = 3
         }
+        matchDetails.currentTime = localTime
         return ["scoreRedYellowData": scoreRedYellow]
     }
 

@@ -17,11 +17,12 @@ class SecondHalfTimer: WKInterfaceController {
     
     var timer = Timer()
     var paused : Bool = false
+    var localTime: Int = matchDetails.currentTime
     
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        timeText.setText(String(matchDetails.halfTime))
+        timeText.setText(String(matchDetails.currentTime))
         scheduledTimerWithTimeInterval()
         homeScore.setText(String(matchDetails.homeScoresArr.count ?? 0))
         awayScore.setText(String(matchDetails.awayScoresArr.count ?? 0))
@@ -34,10 +35,10 @@ class SecondHalfTimer: WKInterfaceController {
     
     @objc func timeCounting(){
         if(!paused){
-            matchDetails.currentTime -= 1
-            timeText.setText(String(matchDetails.currentTime))
+            localTime -= 1
+            timeText.setText(String(localTime))
         }
-        if(matchDetails.currentTime < 1){
+        if(localTime < 1){
             timer.invalidate()
             
             //add popup that says that the timer ended, and add a button that moves the user to the next
@@ -45,6 +46,10 @@ class SecondHalfTimer: WKInterfaceController {
         }
     }
     
+    override func contextForSegue(withIdentifier segueIdentifier: String) -> Any? {
+        matchDetails.currentTime = localTime
+        return ""
+    }
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user

@@ -24,6 +24,7 @@ class numbers: WKInterfaceController {
     var scoreRedYellow : Int = 0
     var timer = Timer()
     var playerNumber: Int = 0
+    var localTime: Int = matchDetails.currentTime
     
     
     override func awake(withContext context: Any?) {
@@ -111,14 +112,11 @@ class numbers: WKInterfaceController {
     
     func scheduledTimerWithTimeInterval(){
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeCounting), userInfo: nil, repeats: true)
-        
     }
     
     @objc func timeCounting(){
-        if(matchDetails.currentTime > 1){
-            matchDetails.currentTime -= 1
-        }
-        if(matchDetails.currentTime < 1){
+        localTime -= 1
+        if(localTime < 1){
             timer.invalidate()
         }
     }
@@ -149,6 +147,7 @@ class numbers: WKInterfaceController {
         }else if(scoreRedYellow == 6){
             matchDetails.awayYellowsArr.append(playerNumber)
         }
-        return []
+        matchDetails.currentTime = localTime
+        return ""
     }
 }

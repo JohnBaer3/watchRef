@@ -13,14 +13,12 @@ import WatchKit
 class ProgRowController: NSObject {
 
     @IBOutlet weak var dateAndTime: WKInterfaceButton!
-    @IBOutlet weak var teamNamesVs: WKInterfaceButton!
     
     var halfTime: Int!
-    var counter : Int!
     
     
     @IBAction func dateTimeClick() {
-        //Here, I want to change the ProgramInterfaceController's chooseMatch to the current number
+        matchDetails.halfTime = halfTime
     }
     
     @IBAction func teamNamesClick() {
